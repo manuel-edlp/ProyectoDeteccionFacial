@@ -1,0 +1,38 @@
+# ===============================================================
+# PROYECTO: DETECCIÓN FACIAL Y EMOCIONES (2026)
+# ENTORNO: Windows + Python 3.11 + venv
+# ===============================================================
+
+# --- Compatibilidad y Soporte Legacy ---
+# Necesario para que face_recognition encuentre sus modelos en Python 3.11+
+setuptools==69.5.1
+
+# --- Framework Web ---
+Flask==3.0.3
+
+# --- Procesamiento de Imágenes y Video ---
+opencv-python==4.9.0.80
+Pillow==10.3.0
+imutils==0.5.4
+
+# --- Inteligencia Artificial y Deep Learning ---
+# NumPy 1.26.x es mandatorio para evitar el "breaking change" de NumPy 2.0
+numpy>=1.26.4,<2.0.0
+tensorflow==2.15.0
+keras==2.15.0
+
+# --- Reconocimiento Facial y Machine Learning ---
+# NOTA PARA WINDOWS: 
+# 1. No instalar 'dlib' directamente (evita error de Visual Studio).
+# 2. Instalar manualmente: 'pip install dlib-bin'
+# 3. face_recognition se instaló con --no-dependencies para vincular con dlib-bin
+face_recognition==1.3.0
+face-recognition-models==0.3.0
+scikit-learn==1.4.2
+
+# --- Utilidades ---
+joblib==1.4.0
+
+# --- Instalación Manual Requerida (vía Git) ---
+# pip install git+https://github.com/oarriaga/paz.git
+# pip install git+https://github.com/ageitgey/face_recognition_models

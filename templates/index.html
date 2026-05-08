@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Clustering & Recognition</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark mb-4">
+    <div class="container d-flex flex-column flex-lg-row justify-content-between align-items-center gap-3">
+        <a class="navbar-brand m-0" href="#">
+            <i class="fa-solid fa-microchip me-2"></i>
+            <span>AI Cluster</span>
+            <span class="fw-light">& Recognition</span>
+        </a>
+
+        <div class="nav-actions">
+            <div class="input-group input-group-sm language-switch">
+                <span class="input-group-text bg-dark text-info border-secondary">
+                    <i class="fa-solid fa-language"></i>
+                </span>
+                <select id="languageSelect" class="form-select bg-dark text-light border-secondary">
+                    <option value="es">ES</option>
+                    <option value="en">EN</option>
+                </select>
+            </div>
+
+            <div class="nav-links">
+                <a href="https://capsulecorp-3d3ce003.mintlify.app/" target="_blank" class="btn btn-outline-info btn-sm">
+                    <i class="fa-solid fa-book me-1"></i>
+                    <span data-i18n="nav.docs">Docs</span>
+                </a>
+                <a href="https://github.com/manuel-edlp/ProyectoDeteccionFacial" target="_blank" class="btn btn-outline-light btn-sm">
+                    <i class="fa-brands fa-github me-1"></i>
+                    <span data-i18n="nav.repo">Repo</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container pb-5">
+    <section class="hero-shell mb-4">
+        <div class="glass-card hero-card p-4 p-lg-5">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <div class="hero-kicker" data-i18n="hero.kicker">Plataforma de analisis facial</div>
+                    <h1 class="hero-title" data-i18n="hero.title">Proyecto de deteccion, clustering y analisis de rostros asistido por inteligencia artificial.</h1>
+                    <p class="hero-copy mb-0" data-i18n="hero.subtitle">La aplicacion integra carga de imagenes, deteccion facial, analisis derivado y exploracion visual de resultados en una unica experiencia pensada para experimentar, comparar metodos y revisar salidas con claridad.</p>
+                </div>
+                <div class="col-lg-5 mt-4 mt-lg-0">
+                    <div class="hero-video-wrapper">
+                        <video autoplay loop muted playsinline class="hero-video">
+                            <source src="static/animacion_v2.webm" type="video/webm">
+                            Tu navegador no soporta el tag de video.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="row g-4 mb-3">
+        <div class="col-12">
+            <div class="glass-card p-4 workflow-section section-guide">
+                <div class="section-heading section-heading-guide mb-3">
+                    <div class="section-heading-top section-heading-top-guide">
+                        <div class="section-step">Guia</div>
+                        <h4 class="section-title text-info mb-0">
+                            <i class="fa-solid fa-route me-2"></i>
+                            <span data-i18n="guide.flowTitle">Flujo de funcionamiento</span>
+                        </h4>
+                    </div>
+                </div>
+                <div class="workflow-rail workflow-rail-wide">
+                    <div class="workflow-chip is-active">
+                        <span class="workflow-chip-index">01</span>
+                        <span data-i18n="workflow.step1">Cargar datos</span>
+                    </div>
+                    <div class="workflow-chip">
+                        <span class="workflow-chip-index">02</span>
+                        <span data-i18n="workflow.step2">Elegir metodo</span>
+                    </div>
+                    <div class="workflow-chip">
+                        <span class="workflow-chip-index">03</span>
+                        <span data-i18n="workflow.step3">Procesar</span>
+                    </div>
+                    <div class="workflow-chip">
+                        <span class="workflow-chip-index">04</span>
+                        <span data-i18n="workflow.step4">Explorar resultados</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 align-items-start">
+        <div class="col-lg-4">
+            <div class="glass-card p-4 h-100 d-flex flex-column workflow-section section-input">
+                <div class="section-heading">
+                    <div class="section-heading-top">
+                        <div class="section-step">01</div>
+                        <h4 class="section-title text-info">
+                            <i class="fa-solid fa-cloud-arrow-up me-2"></i>
+                            <span data-i18n="upload.title">Entrada de datos</span>
+                        </h4>
+                    </div>
+                    <p class="section-copy section-copy-block" data-i18n="upload.subtitle">JPG, PNG o ZIP para procesamiento por lotes.</p>
+                </div>
+
+                <div class="upload-guidance mb-3">
+                    <div class="guidance-badge">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span data-i18n="upload.guidance">Empeza por una muestra pequena para validar el detector antes de correr lotes grandes.</span>
+                    </div>
+                </div>
+
+                <div class="upload-container mb-3" id="dropZone">
+                    <input type="file" id="fileInput" class="file-input" multiple accept="image/*,.zip">
+                    <label for="fileInput" class="file-label d-flex flex-column align-items-center justify-content-center w-100 h-100 cursor-pointer">
+                        <i class="fa-solid fa-file-image fa-2x mb-2 text-info"></i>
+                        <span class="text-center small px-2" data-i18n="upload.pickPrompt">Click aqui para seleccionar imagenes o archivos ZIP</span>
+                    </label>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-2" id="previewControls" style="display:none !important;">
+                    <span class="small text-light opacity-75" id="previewCount">0</span>
+                    <div class="btn-group btn-group-sm">
+                        <button class="btn btn-outline-info active" onclick="setPreviewMode('list')" id="btnList" title="List"><i class="fa-solid fa-list"></i></button>
+                        <button class="btn btn-outline-info" onclick="setPreviewMode('grid')" id="btnGrid" title="Grid"><i class="fa-solid fa-grip"></i></button>
+                    </div>
+                </div>
+
+                <div class="preview-wrapper bg-dark rounded border border-secondary p-2 custom-scroll view-list flex-grow-1 d-none" id="previewList" style="min-height: 250px; overflow-y: auto; overflow-x: hidden;"></div>
+                <label for="fileInput" class="btn btn-sm btn-outline-info w-100 mt-2" id="btnAddMore" style="display:none;">
+                    <span data-i18n="upload.addMore">Agregar mas archivos</span>
+                </label>
+                <button class="btn btn-sm btn-outline-danger w-100 mt-2" id="btnClearAll" style="display:none;" onclick="limpiarSeleccion()">
+                    <span data-i18n="upload.clearAll">Eliminar todas</span>
+                </button>
+
+                <div class="examples-browser mt-3">
+                    <div class="mb-2">
+                        <div class="small fw-semibold text-info text-uppercase" data-i18n="upload.examplesTitle">Explorador de ejemplos</div>
+                        <div class="small text-light opacity-75" data-i18n="upload.examplesSubtitle">Navega la carpeta examples y carga una o varias imagenes al panel.</div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-2 gap-2">
+                        <div id="examplesBreadcrumb" class="example-breadcrumb mb-0"></div>
+                        <button class="btn btn-outline-info btn-sm" id="btnRefreshExamples" type="button">
+                            <i class="fa-solid fa-rotate me-1"></i>
+                            <span data-i18n="upload.examplesRefresh">Actualizar</span>
+                        </button>
+                    </div>
+                    <div id="examplesExplorer" class="example-explorer custom-scroll"></div>
+                    <div id="examplesSelectionInfo" class="small text-light opacity-75 mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="glass-card terminal-card p-4 workflow-section section-execution mb-4">
+                <div class="section-heading mb-4">
+                    <div class="section-heading-main">
+                        <div class="section-heading-top">
+                            <div class="section-step">02</div>
+                            <h4 class="section-title m-0">
+                                <i class="fa-solid fa-terminal me-2"></i>
+                                <span data-i18n="console.title">Consola de mando</span>
+                            </h4>
+                            <span id="statusBadge" class="badge bg-secondary pulse-badge">Esperando...</span>
+                        </div>
+                        <p class="section-copy section-copy-block mb-0" data-i18n="console.subtitle">Primero corre un detector base y despues, si lo necesitas, dispara analisis derivados sobre los resultados generados.</p>
+                    </div>
+                </div>
+
+                <div class="execution-grid">
+                    <div class="execution-block execution-block-primary">
+                        <div class="execution-label">
+                            <i class="fa-solid fa-crosshairs"></i>
+                            <span data-i18n="console.step1">[1] Motor base de deteccion</span>
+                        </div>
+                        <div class="detector-grid">
+                            <button id="btn-vj" onclick="seleccionarMotor('vj')" class="btn btn-terminal text-light detector-card" title="Fast">
+                                <span class="detector-name">Viola-Jones</span>
+                                <span class="detector-meta" data-i18n="console.detector.vj">Rapido para validaciones iniciales</span>
+                            </button>
+                            <button id="btn-cnn" onclick="seleccionarMotor('cnn')" class="btn btn-terminal text-light detector-card is-selected" title="High precision">
+                                <span class="detector-name">CNN Dlib</span>
+                                <span class="detector-meta" data-i18n="console.detector.cnn">Mayor precision para casos exigentes</span>
+                            </button>
+                            <button id="btn-hog" onclick="seleccionarMotor('hog')" class="btn btn-terminal text-light detector-card" title="Balanced">
+                                <span class="detector-name">HOG</span>
+                                <span class="detector-meta" data-i18n="console.detector.hog">Balanceado para uso general</span>
+                            </button>
+                        </div>
+                        <div class="mt-4">
+                            <button id="btnStartDetection" onclick="iniciarDeteccionSeleccionada()" class="btn btn-action-glow w-100 py-3 d-flex align-items-center justify-content-center gap-3">
+                                <i class="fa-solid fa-users-viewfinder"></i>
+                                <span class="fw-bold text-uppercase letter-spacing-wide" data-i18n="console.startDetection">Iniciar detección</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="execution-block">
+                        <div class="execution-label">
+                            <i class="fa-solid fa-sparkles"></i>
+                            <span data-i18n="console.step2">[2] Computo analitico</span>
+                        </div>
+                        <p class="execution-copy" data-i18n="console.analyticsCopy">Usa esta etapa cuando ya tengas detecciones generadas y quieras enriquecerlas.</p>
+                        <div class="input-group input-group-sm mb-2">
+                            <span class="input-group-text bg-dark text-success border-secondary font-monospace">--target</span>
+                            <select id="sourceSelect" class="form-select bg-dark text-light border-secondary font-monospace">
+                                <option value="todas" data-i18n="sources.all">*/todas</option>
+                                <option value="vj_images">./vj_images/</option>
+                                <option value="cnn_images">./cnn_images/</option>
+                                <option value="hog_images">./hog_images/</option>
+                            </select>
+                        </div>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button onclick="ejecutarEspecial('emociones')" class="btn btn-terminal text-light flex-fill d-flex align-items-center justify-content-center gap-2">
+                                <i class="fa-solid fa-face-smile-beam"></i>
+                                <span data-i18n="console.runEmotions">run emociones</span>
+                            </button>
+                            <button onclick="ejecutarEspecial('clustering')" class="btn btn-terminal text-light flex-fill d-flex align-items-center justify-content-center gap-2">
+                                <i class="fa-solid fa-layer-group"></i>
+                                <span data-i18n="console.runClustering">run clustering</span>
+                            </button>
+                        </div>
+                        <div class="hint-box mt-3" id="clusteringHint" data-i18n="console.clusterHint">
+                            El clustering necesita al menos 2 rostros que coincidan para formar un grupo.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-4 workflow-section section-results">
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                    <div class="section-heading-main">
+                        <div class="section-heading-top">
+                            <div class="section-step">03</div>
+                            <h4 class="section-title m-0 text-info">
+                                <i class="fa-solid fa-network-wired me-2"></i>
+                                <span data-i18n="vfs.title">Sistema de archivos virtual</span>
+                            </h4>
+                        </div>
+                    </div>
+                    <button onclick="actualizarExplorador()" class="btn btn-outline-info btn-sm ms-auto">
+                        <i class="fa-solid fa-sync me-1"></i>
+                        <span data-i18n="common.refreshTree">Actualizar arbol</span>
+                    </button>
+                </div>
+                <p class="section-copy section-copy-block mb-3" data-i18n="vfs.subtitle">Aca inspeccionas cada salida generada, comparas carpetas y abris imagenes finales sin perder contexto.</p>
+
+                <div id="status" class="console-box console-box-scroll custom-scroll mb-3 small text-info font-monospace">
+                    <div id="statusInitialLine">&gt; Terminal lista. Aguardando imagenes.</div>
+                </div>
+
+                <div class="row bg-dark rounded-3 mx-0 border border-secondary">
+                    <div class="col-md-4 border-end border-secondary p-3">
+                        <div id="arbolCarpetas" class="list-group list-group-flush custom-scroll" style="max-height: 400px; overflow-y: auto;"></div>
+                    </div>
+                    <div class="col-md-8 p-3">
+                        <div id="visorTitulo" class="small text-info mb-3 fw-bold">
+                            <i class="fa-solid fa-eye me-1"></i>
+                            <span data-i18n="vfs.noFolderSelected">Ninguna carpeta seleccionada</span>
+                        </div>
+                        <div id="visorImagenes" class="d-flex flex-wrap gap-2 align-content-start" style="max-height: 400px; overflow-y: auto; min-height: 150px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mt-1">
+        <div class="col-xl-5">
+            <div class="glass-card p-4 workflow-section section-lab h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="section-heading-main">
+                        <div class="section-heading-top">
+                            <div class="section-step">Opcional</div>
+                            <h4 class="section-title m-0 text-info">
+                                <i class="fa-solid fa-sliders me-2"></i>
+                                <span data-i18n="lab.title">Laboratorio de parametros</span>
+                            </h4>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-light btn-sm" onclick="resetParameters()">
+                        <i class="fa-solid fa-rotate-left me-1"></i>
+                        <span data-i18n="lab.reset">Restaurar</span>
+                    </button>
+                </div>
+                <p class="section-copy section-copy-block mb-3" data-i18n="lab.subtitle">Ajusta los hiperparametros antes de ejecutar cada metodo.</p>
+                <div id="labPanels" class="row g-3"></div>
+            </div>
+        </div>
+
+        <div class="col-xl-7">
+            <div class="glass-card p-4 h-100 workflow-section section-metrics">
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                    <div class="section-heading-main">
+                        <div class="section-heading-top">
+                            <div class="section-step">04</div>
+                            <h4 class="section-title m-0 text-info">
+                                <i class="fa-solid fa-chart-line me-2"></i>
+                                <span data-i18n="metrics.title">Panel de metricas</span>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button class="btn btn-outline-info btn-sm" onclick="actualizarMetricas()">
+                            <i class="fa-solid fa-rotate me-1"></i>
+                            <span data-i18n="common.refresh">Actualizar</span>
+                        </button>
+                        <button class="btn btn-outline-success btn-sm" onclick="exportarDatos()">
+                            <i class="fa-solid fa-file-export me-1"></i>
+                            <span data-i18n="metrics.export">Exportar datos</span>
+                        </button>
+                    </div>
+                </div>
+                <p class="section-copy section-copy-block mb-3" data-i18n="metrics.subtitle">El cierre del flujo resume volumen, calidad y comportamiento del procesamiento para apoyar decisiones rapidas.</p>
+
+                <div class="row g-3 mb-3" id="metricsCards"></div>
+
+                <div class="row g-3">
+                    <div class="col-lg-6">
+                        <div class="metric-panel h-100">
+                            <div class="metric-panel-title" data-i18n="metrics.emotionChart">Distribucion emocional</div>
+                            <div class="chart-stage">
+                                <canvas id="emotionChart"></canvas>
+                            </div>
+                            <div id="emotionChartEmpty" class="metric-empty-state d-none" data-i18n="metrics.noEmotionData">Todavia no hay datos emocionales para graficar.</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="metric-panel h-100">
+                            <div class="metric-panel-title" data-i18n="metrics.methodChart">Detecciones por metodo</div>
+                            <div class="chart-stage">
+                                <canvas id="methodChart"></canvas>
+                            </div>
+                            <div id="methodChartEmpty" class="metric-empty-state d-none" data-i18n="metrics.noDetectionData">Todavia no hay detecciones acumuladas.</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="metric-panel h-100">
+                            <div class="metric-panel-title" data-i18n="metrics.highlights">Indicadores clave</div>
+                            <div id="metricHighlights"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="metric-panel h-100">
+                            <div class="metric-panel-title" data-i18n="metrics.history">Historial reciente</div>
+                            <div id="runHistory"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="text-center py-4 mt-2">
+    <div class="container">
+        <div class="small text-light opacity-50 mb-0 font-monospace d-flex flex-column flex-md-row justify-content-center align-items-center gap-2 gap-md-0">
+            <span>&copy; 2026 <span data-i18n="footer.madeBy">Desarrollado por</span> <span class="fw-bold">Manuel Morullo</span></span>
+            <span class="d-none d-md-inline mx-2">|</span>
+            <div class="d-flex justify-content-center gap-3 gap-md-0">
+                <a href="https://www.linkedin.com/in/manuel-morullo-161677289/" target="_blank" class="text-info text-decoration-none grid-hover-edit fw-bold">
+                    <i class="fa-brands fa-linkedin"></i> LinkedIn
+                </a>
+                <span class="d-none d-md-inline mx-2">|</span>
+                <a href="https://github.com/manuel-edlp" target="_blank" class="text-light text-decoration-none grid-hover-edit fw-bold">
+                    <i class="fa-brands fa-github"></i> GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div id="lightbox" class="lightbox-overlay" style="display: none;">
+    <button class="lightbox-close" onclick="cerrarVisor()"><i class="fa-solid fa-xmark"></i></button>
+    <button class="lightbox-prev" onclick="cambiarImagen(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+    <img id="lightbox-img" src="" alt="Visor">
+    <button class="lightbox-next" onclick="cambiarImagen(1)"><i class="fa-solid fa-chevron-right"></i></button>
+    <div id="lightbox-caption" class="lightbox-caption"></div>
+</div>
+
+<script src="{{ url_for('static', filename='js/core.js') }}"></script>
+<script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+<script src="{{ url_for('static', filename='js/lightbox.js') }}"></script>
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+<script src="{{ url_for('static', filename='js/runs.js') }}"></script>
+<script src="{{ url_for('static', filename='js/explorer.js') }}"></script>
+<script src="{{ url_for('static', filename='js/metrics.js') }}"></script>
+</body>
+</html>

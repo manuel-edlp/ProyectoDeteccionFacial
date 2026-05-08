@@ -1,0 +1,23 @@
+# --- Compatibilidad y Servidor ---
+setuptools==69.5.1
+gunicorn
+python-dotenv
+
+# --- Framework Web ---
+Flask==3.0.3
+
+# --- Procesamiento (VERSIÓN HEADLESS) ---
+opencv-python-headless==4.9.0.80
+Pillow==10.3.0
+imutils==0.5.4
+
+# --- Inteligencia Artificial ---
+numpy>=1.26.4,<2.0.0
+tensorflow==2.15.0
+keras==2.15.0
+
+# --- Reconocimiento Facial ---
+scikit-learn==1.4.2
+
+# --- Utilidades ---
+joblib==1.4.0

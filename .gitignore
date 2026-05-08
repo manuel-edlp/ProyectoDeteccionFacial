@@ -1,0 +1,38 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches
+.cache/
+
+# Logs
+*.log
+
+# Environment / interpreter specifics
+.env
+venv/
+.env.bak/
+.env.*
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Entorno virtual
+/.venv
+
+# carpeta de imagenes
+vj_images/
+hog_images/
+cnn_images/
+temporal/
+clustered_faces/
+/emociones_clasificadas
+/test
+
+# face_encodings
+/face_encodings
+
+/outputs
