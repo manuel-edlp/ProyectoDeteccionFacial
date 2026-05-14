@@ -199,6 +199,14 @@ body {
     margin-bottom: 1.1rem;
 }
 
+.section-heading-guide .section-title i {
+    transition: color 0.3s ease;
+}
+
+.section-heading-guide:hover .section-title i {
+    color: var(--accent-blue);
+}
+
 .section-heading-top-guide {
     position: relative;
     justify-content: center;
@@ -227,6 +235,7 @@ body {
 
 .workflow-rail-wide {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    position: relative;
 }
 
 .workflow-chip {
@@ -235,17 +244,73 @@ body {
     gap: 0.7rem;
     padding: 0.85rem 1rem;
     border-radius: 18px;
-    background: rgba(2, 6, 23, 0.58);
-    border: 1px solid rgba(148, 163, 184, 0.14);
+    background: rgba(2, 6, 23, 0.6);
+    border: 1px solid rgba(148, 163, 184, 0.12);
     color: #cbd5e1;
     font-size: 0.88rem;
     font-weight: 600;
+    transition: 
+        background-color 0.6s ease, 
+        border-color 0.6s ease, 
+        box-shadow 0.6s ease, 
+        color 0.6s ease,
+        transform 0.4s ease;
+    position: relative;
+    cursor: default;
+}
+
+/* Solo aplicar la entrada una vez al inicio sin afectar el estado posterior */
+.workflow-section.section-guide .workflow-chip {
+    animation: fadeIn 0.8s ease-out both;
+}
+
+.workflow-chip:nth-child(1) { animation-delay: 0.1s; }
+.workflow-chip:nth-child(2) { animation-delay: 0.2s; }
+.workflow-chip:nth-child(3) { animation-delay: 0.3s; }
+.workflow-chip:nth-child(4) { animation-delay: 0.4s; }
+
+.workflow-chip:hover {
+    transform: translateY(-4px);
+    border-color: rgba(56, 189, 248, 0.25);
+    background: rgba(15, 23, 42, 0.85);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.workflow-chip::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(56, 189, 248, 0.05),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.workflow-chip:hover::after {
+    left: 100%;
+    transition: 0.8s;
 }
 
 .workflow-chip.is-active {
-    border-color: rgba(56, 189, 248, 0.3);
-    background: linear-gradient(135deg, rgba(8, 47, 73, 0.72), rgba(15, 23, 42, 0.86));
-    color: #e0f2fe;
+    border-color: var(--accent-blue);
+    background-color: rgba(15, 23, 42, 0.9);
+    background-image: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(15, 23, 42, 0.1));
+    color: #f0f9ff;
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.18);
+    animation: activeChipPulse 2s infinite;
+}
+
+.workflow-chip.is-active .workflow-chip-index {
+    background: var(--accent-blue);
+    color: var(--bg-deep);
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+    transform: scale(1.1);
 }
 
 .workflow-chip-index {
@@ -1000,15 +1065,19 @@ body {
 
 /* --- ESTILO DE SCROLLBAR PERSONALIZADO --- */
 
-/* 1. Definimos el ancho del scrollbar */
+/* 1. Definimos el ancho/alto del scrollbar */
 #arbolCarpetas::-webkit-scrollbar,
 #visorImagenes::-webkit-scrollbar {
     width: 8px;
 }
+.academy-pills::-webkit-scrollbar {
+    height: 6px; /* Horizontal scrollbar */
+}
 
 /* 2. El fondo del track */
 #arbolCarpetas::-webkit-scrollbar-track,
-#visorImagenes::-webkit-scrollbar-track {
+#visorImagenes::-webkit-scrollbar-track,
+.academy-pills::-webkit-scrollbar-track {
     background: rgba(30, 41, 59, 0.5);
     border-radius: 10px;
 }
@@ -1020,16 +1089,21 @@ body {
     border-radius: 10px;
     border: 2px solid rgba(30, 41, 59, 1);
 }
+.academy-pills::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #0dcaf0, #0d6efd);
+    border-radius: 10px;
+}
 
 /* 4. Efecto Hover para que se ilumine al pasar el mouse */
 #arbolCarpetas::-webkit-scrollbar-thumb:hover,
-#visorImagenes::-webkit-scrollbar-thumb:hover {
+#visorImagenes::-webkit-scrollbar-thumb:hover,
+.academy-pills::-webkit-scrollbar-thumb:hover {
     background: #0dcaf0;
     box-shadow: 0 0 10px rgba(13, 202, 240, 0.5);
 }
 
 /* Firefox */
-#arbolCarpetas, #visorImagenes {
+#arbolCarpetas, #visorImagenes, .academy-pills {
     scrollbar-width: thin;
     scrollbar-color: #0dcaf0 rgba(30, 41, 59, 0.5);
 }
@@ -1044,6 +1118,23 @@ body {
 
 .animate__fadeIn {
     animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes chipReveal {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes activeChipPulse {
+    0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.3); }
+    70% { box-shadow: 0 0 0 8px rgba(56, 189, 248, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
 }
 
 /* =========================================
@@ -1291,6 +1382,157 @@ body {
     font-size: 0.78rem;
 }
 
+/* =========================================
+   ACADEMIA DE ALGORITMOS
+   ========================================= */
+.section-academy {
+    border-top: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.academy-pills .nav-link {
+    color: var(--text-muted);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.academy-pills .nav-link:hover {
+    background: rgba(15, 23, 42, 0.5);
+    color: var(--text-bright);
+}
+
+.academy-pills .nav-link.active {
+    background: linear-gradient(135deg, rgba(8, 47, 73, 0.8), rgba(15, 23, 42, 0.9));
+    color: #e0f2fe;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
+}
+
+.academy-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 800;
+    color: var(--text-bright);
+    margin: 0;
+}
+
+.academy-year {
+    color: var(--accent-blue);
+    font-weight: 400;
+    font-size: 0.65em;
+    opacity: 0.8;
+}
+
+.academy-authors {
+    color: var(--text-muted);
+    font-family: monospace;
+    font-size: 0.85rem;
+    background: rgba(2, 6, 23, 0.6);
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.academy-card {
+    background: rgba(2, 6, 23, 0.4);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: 16px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.academy-subtitle {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.85rem;
+    color: var(--text-bright);
+}
+
+.academy-text {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+.academy-text strong {
+    color: #e2e8f0;
+}
+
+.academy-list {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    padding-left: 1.25rem;
+    margin-bottom: 0;
+}
+
+.academy-list li {
+    margin-bottom: 0.35rem;
+}
+
+.param-box {
+    background: rgba(15, 23, 42, 0.5);
+    border-left: 3px solid var(--accent-blue);
+    padding: 1rem;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 1rem;
+}
+
+.param-box p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+}
+
+.param-box ul {
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+    font-size: 0.85rem;
+}
+
+.param-box ul li {
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+}
+
+.param-box ul li .text-success, 
+.param-box ul li .text-danger {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-weight: 600;
+}
+
+.param-box ul li i {
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+}
+
+.param-badge {
+    background: var(--accent-blue);
+    color: var(--bg-deep);
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-family: monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(56, 189, 248, 0.15);
+    border-color: rgba(56, 189, 248, 0.3);
+}
+
 @media (max-width: 768px) {
     .hero-title {
         max-width: none;
@@ -1343,5 +1585,18 @@ body {
 
     .metric-list-value {
         text-align: left;
+    }
+    
+    .academy-pills {
+        flex-direction: row !important;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 0.5rem;
+    }
+    
+    .academy-pills .nav-link {
+        white-space: nowrap;
+        margin-right: 0.5rem;
+        margin-bottom: 0;
     }
 }

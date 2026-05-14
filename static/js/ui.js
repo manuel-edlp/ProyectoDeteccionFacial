@@ -106,7 +106,7 @@ function applyTranslations() {
     document.documentElement.lang = appState.language;
     DOM.languageSelect.value = appState.language;
     document.querySelectorAll('[data-i18n]').forEach((node) => {
-        node.textContent = t(node.dataset.i18n);
+        node.innerHTML = t(node.dataset.i18n);
     });
     DOM.previewCount.textContent = t('upload.filesSelected', { count: appState.selectedFiles.length });
     DOM.statusInitialLine.textContent = t('status.initial');
@@ -186,4 +186,23 @@ function renderLabPanels() {
     });
 }
 
+function startWorkflowCycle() {
+    const chips = document.querySelectorAll('.workflow-chip');
+    if (!chips.length) return;
+
+    let currentIndex = 0;
+    
+    setInterval(() => {
+        chips.forEach(chip => chip.classList.remove('is-active'));
+        currentIndex = (currentIndex + 1) % chips.length;
+        chips[currentIndex].classList.add('is-active');
+    }, 3000);
+}
+
 window.resetParameters = resetParameters;
+window.startWorkflowCycle = startWorkflowCycle;
+
+window.addEventListener('load', () => {
+    // Wait a bit for the entrance animation to finish
+    setTimeout(startWorkflowCycle, 2000);
+});

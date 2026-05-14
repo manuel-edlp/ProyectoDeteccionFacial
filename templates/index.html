@@ -188,11 +188,11 @@
                             <span data-i18n="console.step1">[1] Motor base de deteccion</span>
                         </div>
                         <div class="detector-grid">
-                            <button id="btn-vj" onclick="seleccionarMotor('vj')" class="btn btn-terminal text-light detector-card" title="Fast">
+                            <button id="btn-vj" onclick="seleccionarMotor('vj')" class="btn btn-terminal text-light detector-card is-selected" title="Fast">
                                 <span class="detector-name">Viola-Jones</span>
                                 <span class="detector-meta" data-i18n="console.detector.vj">Rapido para validaciones iniciales</span>
                             </button>
-                            <button id="btn-cnn" onclick="seleccionarMotor('cnn')" class="btn btn-terminal text-light detector-card is-selected" title="High precision">
+                            <button id="btn-cnn" onclick="seleccionarMotor('cnn')" class="btn btn-terminal text-light detector-card" title="High precision">
                                 <span class="detector-name">CNN Dlib</span>
                                 <span class="detector-meta" data-i18n="console.detector.cnn">Mayor precision para casos exigentes</span>
                             </button>
@@ -364,6 +364,448 @@
             </div>
         </div>
     </div>
+
+    <!-- SECCIÓN: ACADEMIA DE ALGORITMOS -->
+    <div class="row g-4 mt-1">
+        <div class="col-12">
+            <div class="glass-card p-4 p-lg-5 mb-2 workflow-section section-academy">
+                <div class="section-heading mb-4">
+                    <div class="section-heading-top">
+                        <div class="section-step"><i class="fa-solid fa-graduation-cap"></i></div>
+                        <h4 class="section-title m-0 text-info">
+                            <span data-i18n="academy.title">Base de Conocimiento IA</span>
+                        </h4>
+                    </div>
+                    <p class="section-copy section-copy-block mb-0" data-i18n="academy.desc">Comprender qué pasa debajo del capó te permite tomar mejores decisiones analíticas. Explora el mundo de la visión artificial, desde los conceptos base hasta el funcionamiento de cada motor.</p>
+                </div>
+
+                <!-- INTRODUCCION A LA IA -->
+                <div class="academy-card mb-4 border-info border-opacity-25" style="background: rgba(14, 165, 233, 0.05);">
+                    <h5 class="academy-subtitle text-info"><i class="fa-solid fa-network-wired me-2"></i> <span data-i18n="academy.eco_title">El Ecosistema de la IA y Clasificación</span></h5>
+                    <p class="academy-text mb-3" data-i18n="academy.eco_text">La "Inteligencia Artificial" es un término paraguas. Dentro de ella existe el <strong>Machine Learning</strong> (algoritmos que aprenden de datos sin ser programados explícitamente) y, más profundo aún, el <strong>Deep Learning</strong> (redes neuronales complejas inspiradas en el cerebro humano). A su vez, los modelos se dividen en <strong>Supervisados</strong> (aprenden con ejemplos etiquetados, ej: "esto es una cara") y <strong>No Supervisados</strong> (encuentran patrones por sí solos en datos desordenados).</p>
+                    
+                    <div class="row g-2 mt-2">
+                        <div class="col-md-3">
+                            <div class="param-box mb-0 h-100 border-start-0 border-top border-info border-3 rounded text-center p-2" style="background: rgba(15, 23, 42, 0.6);">
+                                <span class="d-block fw-bold text-light mb-1">Viola-Jones</span>
+                                <span class="badge bg-dark border border-secondary text-light opacity-75" data-i18n="academy.vj_badge">ML Supervisado Clásico</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="param-box mb-0 h-100 border-start-0 border-top border-warning border-3 rounded text-center p-2" style="background: rgba(15, 23, 42, 0.6);">
+                                <span class="d-block fw-bold text-light mb-1">HOG + SVM</span>
+                                <span class="badge bg-dark border border-secondary text-light opacity-75" data-i18n="academy.hog_badge">ML Supervisado Clásico</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="param-box mb-0 h-100 border-start-0 border-top border-danger border-3 rounded text-center p-2" style="background: rgba(15, 23, 42, 0.6);">
+                                <span class="d-block fw-bold text-light mb-1">CNN / Xception</span>
+                                <span class="badge bg-dark border border-secondary text-light opacity-75" data-i18n="academy.cnn_badge">Deep Learning Supervisado</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="param-box mb-0 h-100 border-start-0 border-top border-success border-3 rounded text-center p-2" style="background: rgba(15, 23, 42, 0.6);">
+                                <span class="d-block fw-bold text-light mb-1">DBSCAN</span>
+                                <span class="badge bg-dark border border-secondary text-light opacity-75" data-i18n="academy.dbscan_badge">ML No Supervisado</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTEXTO MOTORES -->
+                <div class="mb-4 px-2">
+                    <h5 class="text-light mb-2"><i class="fa-solid fa-microchip text-info me-2"></i> <span data-i18n="academy.motors_title">Los Motores de Análisis</span></h5>
+                    <p class="academy-text" data-i18n="academy.motors_text">Los 5 modelos utilizados en esta plataforma no son simples variaciones de un mismo código, sino que pertenecen a generaciones tecnológicas distintas de la visión por computadora. Selecciona un motor a continuación para descubrir su funcionamiento interno, cuándo es tu mejor opción, y cómo sus parámetros alteran la balanza entre precisión y rendimiento.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-3">
+                        <div class="nav flex-column nav-pills academy-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <button class="nav-link active" id="v-pills-vj-tab" data-bs-toggle="pill" data-bs-target="#v-pills-vj" type="button" role="tab" aria-selected="true">
+                                <span class="fw-bold">Viola-Jones</span>
+                                <span class="small d-block text-start opacity-75" data-i18n="academy.vj_desc">Detección Rápida</span>
+                            </button>
+                            <button class="nav-link" id="v-pills-hog-tab" data-bs-toggle="pill" data-bs-target="#v-pills-hog" type="button" role="tab" aria-selected="false">
+                                <span class="fw-bold">HOG + SVM</span>
+                                <span class="small d-block text-start opacity-75" data-i18n="academy.hog_desc">Gradientes Estructurales</span>
+                            </button>
+                            <button class="nav-link" id="v-pills-cnn-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cnn" type="button" role="tab" aria-selected="false">
+                                <span class="fw-bold">CNN Dlib</span>
+                                <span class="small d-block text-start opacity-75" data-i18n="academy.cnn_desc">Deep Learning MMOD</span>
+                            </button>
+                            <button class="nav-link" id="v-pills-dbscan-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dbscan" type="button" role="tab" aria-selected="false">
+                                <span class="fw-bold">DBSCAN</span>
+                                <span class="small d-block text-start opacity-75" data-i18n="academy.dbscan_desc">Agrupación por Densidad</span>
+                            </button>
+                            <button class="nav-link" id="v-pills-emotions-tab" data-bs-toggle="pill" data-bs-target="#v-pills-emotions" type="button" role="tab" aria-selected="false">
+                                <span class="fw-bold">Mini-Xception</span>
+                                <span class="small d-block text-start opacity-75" data-i18n="academy.emotions_desc">Análisis de Emociones</span>
+                            </button>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="tab-content academy-content" id="v-pills-tabContent">
+                            
+                            <!-- VIOLA JONES -->
+                            <div class="tab-pane fade show active" id="v-pills-vj" role="tabpanel" tabindex="0">
+                                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+                                    <h3 class="academy-title">Viola-Jones <span class="academy-year">(2001)</span></h3>
+                                    <span class="academy-authors"><i class="fa-solid fa-user-pen me-1"></i> Paul Viola & Michael Jones</span>
+                                </div>
+                                
+                                <div class="academy-card">
+                                    <h5 class="academy-subtitle"><i class="fa-solid fa-microchip me-2 text-info"></i> <span data-i18n="academy.how_it_works">¿Cómo funciona internamente?</span></h5>
+                                    <p class="academy-text" data-i18n="academy.vj_how_text">Revolucionó la visión por computadora. No busca "ojos" o "narices" directamente, sino que escanea la imagen usando <strong>Características de Haar</strong> (bloques de contraste, ej: el área de los ojos es más oscura que las mejillas). Utiliza una estructura llamada "Imagen Integral" para hacer sumas de píxeles al instante. Finalmente, pasa la imagen por una <strong>Cascada Atencional</strong>: etapas sucesivas donde descarta rápidamente áreas que no son rostros, concentrando el cómputo solo en candidatos fuertes.</p>
+                                </div>
+
+                                <div class="row g-3 mt-1">
+                                    <div class="col-md-6">
+                                        <div class="academy-card h-100 border-success border-opacity-25">
+                                            <h5 class="academy-subtitle text-success"><i class="fa-solid fa-check me-2"></i> <span data-i18n="academy.when_to_use">¿Cuándo usarlo?</span></h5>
+                                            <ul class="academy-list">
+                                                <li data-i18n="academy.vj_when_1">Ideal para procesamiento en tiempo real (webcams, videos).</li>
+                                                <li data-i18n="academy.vj_when_2">Hardware con recursos limitados.</li>
+                                                <li data-i18n="academy.vj_when_3">Rostros completamente frontales y bien iluminados.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="academy-card h-100 border-danger border-opacity-25">
+                                            <h5 class="academy-subtitle text-danger"><i class="fa-solid fa-xmark me-2"></i> <span data-i18n="academy.disadvantages">Desventajas</span></h5>
+                                            <ul class="academy-list">
+                                                <li data-i18n="academy.vj_con_1">Pésimo con rostros de perfil o inclinados.</li>
+                                                <li data-i18n="academy.vj_con_2">Muy sensible a sombras cruzadas.</li>
+                                                <li data-i18n="academy.vj_con_3">Alto índice de falsos positivos (detecta cosas que no son caras) si no se ajusta bien.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="academy-card mt-3">
+                                    <h5 class="academy-subtitle"><i class="fa-solid fa-sliders me-2 text-warning"></i> <span data-i18n="academy.key_params">Parámetros clave</span></h5>
+                                    <div class="param-box">
+                                        <h6><span class="param-badge">Scale Factor</span></h6>
+                                        <p data-i18n="academy.vj_param_1_desc">El detector escanea la imagen buscando caras de 30x30, luego amplía la "lupa" un porcentaje (ej. 10%) y vuelve a buscar. Este valor dictamina ese porcentaje.</p>
+                                        <ul>
+                                            <li><span class="text-success"><i class="fa-solid fa-arrow-up"></i> <span data-i18n="academy.vj_param_1_up">Aumentarlo (ej. 1.5): Salta tamaños rápidamente. Súper rápido, pero puede saltearse el tamaño exacto del rostro en la foto.</span></span></li>
+                                            <li><span class="text-danger"><i class="fa-solid fa-arrow-down"></i> <span data-i18n="academy.vj_param_1_down">Disminuirlo (ej. 1.05): Escanea meticulosamente todos los tamaños posibles. Detectará más, pero será computacionalmente lento.</span></span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="param-box">
+                                        <h6><span class="param-badge">Min Neighbors</span></h6>
+                                        <p data-i18n="academy.vj_param_2_desc">Como el algoritmo detecta múltiples "rectángulos" sobre una misma cara real, este valor exige cuántos rectángulos superpuestos se necesitan para confirmar definitivamente un rostro.</p>
+                                        <ul>
+                                            <li><span class="text-success"><i class="fa-solid fa-arrow-up"></i> <span data-i18n="academy.vj_param_2_up">Aumentarlo (ej. 6-10): Filtra estrictamente. Adiós a los falsos positivos, pero corres el riesgo de perder caras reales borrosas.</span></span></li>
+                                            <li><span class="text-danger"><i class="fa-solid fa-arrow-down"></i> <span data-i18n="academy.vj_param_2_down">Disminuirlo (ej. 1-2): Permisivo. Detectarás hasta caras ocultas, pero también texturas de pared o manchas que parecen rostros.</span></span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- HOG -->
+                            <div class="tab-pane fade" id="v-pills-hog" role="tabpanel" tabindex="0">
+                                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+                                    <h3 class="academy-title">Histogram of Oriented Gradients <span class="academy-year">(2005)</span></h3>
+                                    <span class="academy-authors"><i class="fa-solid fa-user-pen me-1"></i> Navneet Dalal & Bill Triggs</span>
+                                </div>
+                                
+                                <div class="academy-card">
+                                    <h5 class="academy-subtitle"><i class="fa-solid fa-microchip me-2 text-info"></i> <span data-i18n="academy.how_it_works">¿Cómo funciona internamente?</span></h5>
+                                    <p class="academy-text" data-i18n="academy.hog_how_text">En vez de mirar los colores, HOG mira la "estructura". Divide la imagen en pequeñas celdas y calcula la dirección hacia donde cambia más rápido la luz (el gradiente, es decir, los bordes). Un rostro humano tiene un patrón de bordes muy específico (contorno de la cabeza, cuencas de los ojos). Estos patrones se introducen a un <strong>Clasificador SVM Lineal</strong> entrenado previamente con miles de rostros para decidir si el patrón actual es humano o no.</p>
+                                </div>
+
+                                <div class="row g-3 mt-1">
+                                    <div class="col-md-6">
+                                        <div class="academy-card h-100 border-success border-opacity-25">
+                                            <h5 class="academy-subtitle text-success"><i class="fa-solid fa-check me-2"></i> <span data-i18n="academy.when_to_use">¿Cuándo usarlo?</span></h5>
+                                            <ul class="academy-list">
+                                                <li data-i18n="academy.hog_when_1">El punto dulce entre velocidad y fiabilidad (Balanceado).</li>
+                                                <li data-i18n="academy.hog_when_2">Robusto a cambios de iluminación (porque solo mira cambios de contraste, no colores).</li>
+                                                <li data-i18n="academy.hog_when_3">Excelente para imágenes de calidad media en adelante.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="academy-card h-100 border-danger border-opacity-25">
+                                            <h5 class="academy-subtitle text-danger"><i class="fa-solid fa-xmark me-2"></i> <span data-i18n="academy.disadvantages">Desventajas</span></h5>
+                                            <ul class="academy-list">
+                                                <li data-i18n="academy.hog_con_1">Lento en imágenes gigantes si no se reduce su tamaño.</li>
+                                                <li data-i18n="academy.hog_con_2">Le cuesta identificar rostros extremadamente pequeños o muy ladeados.</li>
+                                                <li data-i18n="academy.hog_con_3">No percibe bien detalles finos si la imagen está pixelada.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="academy-card mt-3">
+                                    <h5 class="academy-subtitle"><i class="fa-solid fa-sliders me-2 text-warning"></i> <span data-i18n="academy.key_params">Parámetros clave</span></h5>
+                                    <div class="param-box mb-0">
+                                        <h6><span class="param-badge">Upsample Times</span></h6>
+                                        <p data-i18n="academy.hog_param_1_desc">HOG fue entrenado para buscar rostros de un tamaño fijo (ej. 80x80 px). Si en tu foto la cara mide 40x40, el modelo no la verá. El "Upsample" estira o amplía artificialmente toda la imagen original antes de que HOG la analice, haciendo grandes las caras pequeñas.</p>
+                                        <ul>
+                                            <li><span class="text-success"><i class="fa-solid fa-arrow-up"></i> <span data-i18n="academy.hog_param_1_up">Aumentarlo (ej. 2 o 3): Encuentra rostros lejanos en fotos panorámicas. El costo de RAM y tiempo de CPU se dispara exponencialmente.</span></span></li>
+                                            <li><span class="text-danger"><i class="fa-solid fa-arrow-down"></i> <span data-i18n="academy.hog_param_1_down">Disminuirlo (ej. 0): Usa la imagen tal cual. Máxima velocidad, pero no verá personas en el fondo de la foto.</span></span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CNN DLIB -->
+                            <div class="tab-pane fade" id="v-pills-cnn" role="tabpanel" tabindex="0">
+                                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+                                    <h3 class="academy-title">CNN Dlib (MMOD) <span class="academy-year">(2016)</span></h3>
+                                    <span class="academy-authors"><i class="fa-solid fa-user-pen me-1"></i> Davis King</span>
+                                </div>
+                                
+                                <div class="academy-card">
+                                    <h5 class="academy-subtitle"><i class="fa-solid fa-microchip me-2 text-info"></i> <span data-i18n="academy.how_it_works">¿Cómo funciona internamente?</span></h5>
+                                    <p class="academy-text" data-i18n="academy.cnn_how_text">Usa Aprendizaje Profundo puro. Pasa la imagen a través de capas convolucionales que aprenden jerárquicamente: primero detectan líneas, luego formas como ojos, y al final rostros completos. Se entrenó usando un método llamado <strong>Max-Margin Object Detection (MMOD)</strong>, que requiere muchísimos menos datos de entrenamiento que otras redes para lograr resultados superiores, optimizando la pérdida global de la imagen completa en lugar de ventanas individuales.</p>
+                                </div>
+
+                                <div class="row g-3 mt-1">
+                                    <div class="col-md-6">
+                                        <div class="academy-card h-100 border-success border-opacity-25">
+                                            <h5 class="academy-subtitle text-success"><i class="fa-solid fa-check me-2"></i> <span data-i18n="academy.when_to_use">¿Cuándo usarlo?</span></h5>
+                                            <ul class="academy-list">
+                                                <li data-i18n="academy.cnn_when_1">Cuando la <strong>precisión lo es todo</strong>.</li>
+                                                <li data-i18n="academy.cnn_when_2">Rostros ocluidos, de perfil extremo, en la sombra, o invertidos.</li>
+                                                <li data-i18n="academy.cnn_when_3">Disponibilidad de Aceleración por Hardware (GPU).</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="academy-card h-100 border-danger border-opacity-25">
+                                            <h5 class="academy-subtitle text-danger"><i class="fa-solid fa-xmark me-2"></i> <span data-i18n="academy.disadvantages">Desventajas</span></h5>
+                                            <ul class="academy-list">
+                                                <li data-i18n="academy.cnn_con_1">Extremadamente pesado computacionalmente. En CPU toma varios segundos por imagen.</li>
+                                                <li data-i18n="academy.cnn_con_2">Consume una cantidad altísima de memoria RAM durante la inferencia.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="academy-card mt-3">
+                                    <h5 class="academy-subtitle"><i class="fa-solid fa-sliders me-2 text-warning"></i> <span data-i18n="academy.key_params">Parámetros clave</span></h5>
+                                    <div class="param-box">
+                                        <h6><span class="param-badge">Resize Width</span></h6>
+                                        <p data-i18n="academy.cnn_param_1_desc">Como las CNN procesan cada píxel densamente, pasarle una imagen de 4K directamente agotaría la RAM y tomaría minutos. Este parámetro encoge la imagen a un ancho manejable antes de dársela a la red neuronal.</p>
+                                        <ul>
+                                            <li><span class="text-success"><i class="fa-solid fa-arrow-up"></i> <span data-i18n="academy.cnn_param_1_up">Aumentarlo (ej. 1600px): Conservas todo el detalle de caras lejanas, precisión quirúrgica, a costo de un impacto severo en la memoria.</span></span></li>
+                                            <li><span class="text-danger"><i class="fa-solid fa-arrow-down"></i> <span data-i18n="academy.cnn_param_1_down">Disminuirlo (ej. 400px): Velocidad aceptable en CPU, pero todo detalle pequeño se pierde por la compresión.</span></span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="param-box mb-0">
+                                        <h6><span class="param-badge">Upsample Times</span></h6>
+                                        <p data-i18n="academy.cnn_param_2_desc">Igual que en HOG, pero combinado con Resize Width. Primero se reduce la imagen, y luego se aplica el upsample si se indica. Ayuda a que la CNN vea rostros que quedaron miniaturizados por el resize inicial.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- DBSCAN -->
+                            <div class="tab-pane fade" id="v-pills-dbscan" role="tabpanel" tabindex="0">
+                                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+                                    <h3 class="academy-title">DBSCAN Clustering <span class="academy-year">(1996)</span></h3>
+                                    <span class="academy-authors"><i class="fa-solid fa-user-pen me-1"></i> Ester, Kriegel, Sander, Xu</span>
+                                </div>
+                                
+                                <div class="academy-card">
+                                    <h5 class="academy-subtitle"><i class="fa-solid fa-microchip me-2 text-info"></i> <span data-i18n="academy.how_it_works">¿Cómo funciona internamente?</span></h5>
+                                    <p class="academy-text" data-i18n="academy.dbscan_how_text">Para agrupar caras de una misma persona, la app primero transforma cada rostro en un "vector de 128 dimensiones" (embedding). El algoritmo <strong>Density-Based Spatial Clustering of Applications with Noise</strong> imagina estos vectores flotando en un espacio 3D (128D, en realidad). Empieza a agrupar los puntos que están amontonados cerca (alta densidad). Los puntos que quedan aislados y solos se descartan asumiendo que son <strong>Ruido</strong> (caras que aparecen una sola vez o errores de detección).</p>
+                                </div>
+
+                                <div class="row g-3 mt-1">
+                                    <div class="col-md-6">
+                                        <div class="academy-card h-100 border-success border-opacity-25">
+                                            <h5 class="academy-subtitle text-success"><i class="fa-solid fa-check me-2"></i> <span data-i18n="academy.when_to_use">¿Cuándo usarlo?</span></h5>
+                                            <ul class="academy-list">
+                                                <li data-i18n="academy.dbscan_when_1">Clasificación no supervisada (no sabes cuántas personas diferentes hay en tus fotos, ni quiénes son).</li>
+                                                <li data-i18n="academy.dbscan_when_2">Extraer a los protagonistas de un evento (aparecerán repetidas veces formando clusters).</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="academy-card h-100 border-danger border-opacity-25">
+                                            <h5 class="academy-subtitle text-danger"><i class="fa-solid fa-xmark me-2"></i> <span data-i18n="academy.disadvantages">Desventajas</span></h5>
+                                            <ul class="academy-list">
+                                                <li data-i18n="academy.dbscan_con_1">Personas que cambian radicalmente de aspecto (lentes, de perfil extremo a frontal) pueden terminar en clusters distintos.</li>
+                                                <li data-i18n="academy.dbscan_con_2">Personas muy parecidas entre sí (gemelos) podrían fusionarse.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="academy-card mt-3">
+                                    <h5 class="academy-subtitle"><i class="fa-solid fa-sliders me-2 text-warning"></i> <span data-i18n="academy.key_params">Parámetros clave</span></h5>
+                                    <div class="param-box">
+                                        <h6><span class="param-badge">Epsilon (EPS)</span></h6>
+                                        <p data-i18n="academy.dbscan_param_1_desc">Es la "distancia máxima" permitida entre dos puntos para considerarlos del mismo grupo. Básicamente: ¿qué tan diferentes pueden ser dos caras para que yo siga asumiendo que son la misma persona?</p>
+                                        <ul>
+                                            <li><span class="text-success"><i class="fa-solid fa-arrow-up"></i> <span data-i18n="academy.dbscan_param_1_up">Aumentarlo (ej. 0.8): Muy tolerante. Une muchísimas fotos, pero terminarás con clusters híbridos mezclando distintas personas.</span></span></li>
+                                            <li><span class="text-danger"><i class="fa-solid fa-arrow-down"></i> <span data-i18n="academy.dbscan_param_1_down">Disminuirlo (ej. 0.3): Súper estricto. Separará a la misma persona si en una foto sonríe y en otra está seria. Genera muchos mini-clusters y mucho ruido.</span></span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="param-box mb-0">
+                                        <h6><span class="param-badge">Min Samples</span></h6>
+                                        <p data-i18n="academy.dbscan_param_2_desc">El núcleo duro. ¿Cuántas apariciones repetidas de la misma persona necesito ver para decidir que merece su propia carpeta (cluster) y no es solo ruido ocasional?</p>
+                                        <ul>
+                                            <li><span class="text-success"><i class="fa-solid fa-arrow-up"></i> <span data-i18n="academy.dbscan_param_2_up">Aumentarlo (ej. 5): Formará clusters muy sólidos solo con personas que aparecen en muchas fotos. Limpia el ruido, pero descarta a invitados que salieron en 3 o 4 fotos.</span></span></li>
+                                            <li><span class="text-danger"><i class="fa-solid fa-arrow-down"></i> <span data-i18n="academy.dbscan_param_2_down">Disminuirlo (ej. 2): Cualquiera que aparezca al menos 2 veces tendrá su carpeta. Útil en set de datos pequeños, pero genera muchas carpetas irrelevantes.</span></span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- EMOTIONS -->
+                            <div class="tab-pane fade" id="v-pills-emotions" role="tabpanel" tabindex="0">
+                                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+                                    <h3 class="academy-title">Mini-Xception FER <span class="academy-year">(2017)</span></h3>
+                                    <span class="academy-authors"><i class="fa-solid fa-user-pen me-1"></i> Arriaga, Plöger & Valdenegro</span>
+                                </div>
+                                
+                                <div class="academy-card">
+                                    <h5 class="academy-subtitle"><i class="fa-solid fa-microchip me-2 text-info"></i> <span data-i18n="academy.how_it_works">¿Cómo funciona internamente?</span></h5>
+                                    <p class="academy-text" data-i18n="academy.emotions_how_text">Para clasificar emociones, la aplicación utiliza una red neuronal convolucional (CNN) súper ligera llamada <strong>Mini-Xception</strong>. Esta arquitectura usa un truco llamado "Convoluciones Separables en Profundidad" (Depthwise Separable Convolutions), lo que le permite aprender los sutiles dobleces de la cara, arrugas y formas de la boca usando solo 60,000 parámetros (una red típica usaría millones). Toma la imagen del rostro ya recortada, la pasa a escala de grises, y devuelve una distribución de probabilidades para 7 emociones universales.</p>
+                                </div>
+
+                                <div class="row g-3 mt-1">
+                                    <div class="col-md-6">
+                                        <div class="academy-card h-100 border-success border-opacity-25">
+                                            <h5 class="academy-subtitle text-success"><i class="fa-solid fa-check me-2"></i> <span data-i18n="academy.when_to_use">¿Cuándo usarlo?</span></h5>
+                                            <ul class="academy-list">
+                                                <li data-i18n="academy.emotions_when_1">Análisis de sentimiento en clientes (retail, satisfacción).</li>
+                                                <li data-i18n="academy.emotions_when_2">Clasificación rápida post-detección, ya que el modelo es tan ligero que puede correr en tiempo real incluso en CPUs básicas.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="academy-card h-100 border-danger border-opacity-25">
+                                            <h5 class="academy-subtitle text-danger"><i class="fa-solid fa-xmark me-2"></i> <span data-i18n="academy.disadvantages">Desventajas</span></h5>
+                                            <ul class="academy-list">
+                                                <li data-i18n="academy.emotions_con_1">Altamente dependiente de una buena detección previa: si el recorte del rostro incluye mucho fondo o está mal centrado, la predicción falla.</li>
+                                                <li data-i18n="academy.emotions_con_2">Limitado a 7 emociones básicas; no detecta microexpresiones complejas (como "aburrimiento" o "confusión").</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="academy-card mt-3">
+                                    <h5 class="academy-subtitle"><i class="fa-solid fa-sliders me-2 text-warning"></i> <span data-i18n="academy.considerations">Consideraciones</span></h5>
+                                    <div class="param-box mb-0">
+                                        <h6><span class="param-badge" data-i18n="academy.res_color">Resolución y Color</span></h6>
+                                        <p data-i18n="academy.emotions_param_desc">Aunque no hay hiperparámetros ajustables en la consola para esta red, es vital entender que el modelo fue entrenado con imágenes de <strong>48x48 píxeles en escala de grises</strong> (Dataset FER-2013). Internamente, la app convierte tu rostro detectado a este formato. Si la foto original es de bajísima resolución o el rostro detectado es diminuto, al estirarlo a 48x48 se pixelará y el modelo clasificará mal la emoción.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GLOSARIO TECNICO -->
+                <div class="mt-5 border-top border-secondary border-opacity-25 pt-4">
+                    <div class="d-flex align-items-center mb-4">
+                        <i class="fa-solid fa-book-bookmark text-info fs-4 me-3"></i>
+                        <h4 class="m-0 text-light fw-bold" data-i18n="glossary.title">Glosario Técnico</h4>
+                    </div>
+                    
+                    <div class="row g-3">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="academy-card h-100 mb-0 hover-lift">
+                                <h6 class="text-info fw-bold mb-2" data-i18n="glossary.bbox_title">Bounding Box (Caja Delimitadora)</h6>
+                                <p class="academy-text small" data-i18n="glossary.bbox_text">El rectángulo matemático (definido por coordenadas X, Y, Ancho y Alto) que el algoritmo dibuja alrededor de un objeto detectado para enmarcarlo en la imagen.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="academy-card h-100 mb-0 hover-lift">
+                                <h6 class="text-info fw-bold mb-2" data-i18n="glossary.grayscale_title">Escala de Grises (Grayscale)</h6>
+                                <p class="academy-text small" data-i18n="glossary.grayscale_text">Proceso de eliminar los canales de color (RGB) de una imagen. Analizar 1 solo canal en lugar de 3 reduce el tiempo de procesamiento en un 66% sin perder la estructura del rostro.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="academy-card h-100 mb-0 hover-lift">
+                                <h6 class="text-info fw-bold mb-2" data-i18n="glossary.haar_title">Características de Haar</h6>
+                                <p class="academy-text small" data-i18n="glossary.haar_text">Plantillas matemáticas que buscan contrastes simples (luz/sombra) en la imagen. Por ejemplo, el puente de la nariz suele ser más claro que las cuencas de los ojos.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="academy-card h-100 mb-0 hover-lift">
+                                <h6 class="text-info fw-bold mb-2" data-i18n="glossary.integral_title">Imagen Integral</h6>
+                                <p class="academy-text small" data-i18n="glossary.integral_text">Un truco matemático que permite calcular la suma de los píxeles de cualquier rectángulo en solo 4 operaciones. Es lo que hace a Viola-Jones tan rápido.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="academy-card h-100 mb-0 hover-lift">
+                                <h6 class="text-info fw-bold mb-2" data-i18n="glossary.gradient_title">Gradiente de Imagen</h6>
+                                <p class="academy-text small" data-i18n="glossary.gradient_text">La dirección hacia donde cambia más rápido la luz. HOG dibuja "flechas" apuntando de lo oscuro a lo claro, creando un esqueleto de bordes del rostro.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="academy-card h-100 mb-0 hover-lift">
+                                <h6 class="text-info fw-bold mb-2" data-i18n="glossary.separable_title">Convoluciones Separables</h6>
+                                <p class="academy-text small" data-i18n="glossary.separable_text">Técnica de Deep Learning que separa el análisis de formas del análisis de canales de color, reduciendo drásticamente la potencia de cálculo necesaria.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="academy-card h-100 mb-0 hover-lift">
+                                <h6 class="text-info fw-bold mb-2" data-i18n="glossary.clustering_title">Clustering (Agrupamiento)</h6>
+                                <p class="academy-text small" data-i18n="glossary.clustering_text">Técnica de Machine Learning no supervisado donde la IA junta elementos que "se parecen" matemáticamente en un espacio de muchas dimensiones.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="academy-card h-100 mb-0 hover-lift">
+                                <h6 class="text-info fw-bold mb-2" data-i18n="glossary.outliers_title">Ruido / Outliers</h6>
+                                <p class="academy-text small" data-i18n="glossary.outliers_text">Puntos de datos (rostros) que están demasiado lejos de cualquier grupo. En esta app, suelen ser falsos positivos o personas que aparecen una sola vez.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="academy-card h-100 mb-0 hover-lift">
+                                <h6 class="text-info fw-bold mb-2" data-i18n="glossary.precision_recall_title">Precisión vs Exhaustividad</h6>
+                                <p class="academy-text small" data-i18n="glossary.precision_recall_text">La Precisión mide qué tan confiable es una detección. La Exhaustividad (Recall) mide cuántas caras totales del total real logró encontrar la IA.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="academy-card h-100 mb-0 hover-lift">
+                                <h6 class="text-info fw-bold mb-2" data-i18n="glossary.overfitting_title">Sobreajuste (Overfitting)</h6>
+                                <p class="academy-text small" data-i18n="glossary.overfitting_text">Cuando un modelo "memoriza" las fotos de entrenamiento en lugar de aprender patrones generales, fallando al ver imágenes nuevas del mundo real.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="academy-card h-100 mb-0 hover-lift">
+                                <h6 class="text-info fw-bold mb-2" data-i18n="glossary.embedding_title">Embedding</h6>
+                                <p class="academy-text small" data-i18n="glossary.embedding_text">Una representación matemática (un vector de 128 dimensiones) que resume las características únicas de un rostro, permitiendo compararlos numéricamente.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="academy-card h-100 mb-0 hover-lift">
+                                <h6 class="text-info fw-bold mb-2" data-i18n="glossary.svm_title">Clasificador SVM</h6>
+                                <p class="academy-text small" data-i18n="glossary.svm_text">Support Vector Machine. Un algoritmo clásico que traza una línea divisoria en un espacio multidimensional para separar categorías ("cara" vs "no cara").</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="academy-card h-100 mb-0 hover-lift">
+                                <h6 class="text-info fw-bold mb-2" data-i18n="glossary.cnn_title">Red Convolucional (CNN)</h6>
+                                <p class="academy-text small" data-i18n="glossary.cnn_text">Red neuronal que usa filtros para escanear la imagen por partes, aprendiendo patrones jerárquicos (líneas -> formas -> rostros completos).</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="academy-card h-100 mb-0 hover-lift">
+                                <h6 class="text-info fw-bold mb-2" data-i18n="glossary.mmod_title">MMOD</h6>
+                                <p class="academy-text small" data-i18n="glossary.mmod_text">Max-Margin Object Detection. Técnica para CNNs que optimiza la detección evaluando la imagen completa a la vez, mejorando la precisión en rostros difíciles.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="academy-card h-100 mb-0 hover-lift">
+                                <h6 class="text-info fw-bold mb-2" data-i18n="glossary.inference_title">Inferencia vs Entrenamiento</h6>
+                                <p class="academy-text small" data-i18n="glossary.inference_text">El Entrenamiento es el aprendizaje inicial del modelo. La Inferencia es el proceso de usar ese conocimiento para procesar tus fotos en tiempo real.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 
 <footer class="text-center py-4 mt-2">
@@ -391,7 +833,7 @@
     <button class="lightbox-next" onclick="cambiarImagen(1)"><i class="fa-solid fa-chevron-right"></i></button>
     <div id="lightbox-caption" class="lightbox-caption"></div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{ url_for('static', filename='js/core.js') }}"></script>
 <script src="{{ url_for('static', filename='js/ui.js') }}"></script>
 <script src="{{ url_for('static', filename='js/lightbox.js') }}"></script>
